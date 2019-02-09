@@ -1,0 +1,6 @@
+name: TntBlockBreaker
+main: com.chicoferreira.tntblockbreaker.TntBlockBreaker
+version: 1.0
+author: chicoferreira
+commands:
+    giveimpulsetnt:

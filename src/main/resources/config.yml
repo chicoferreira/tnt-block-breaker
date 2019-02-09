@@ -1,0 +1,20 @@
+Health:
+    STONE: 1.0
+    BEDROCK: 3.5
+    DEFAULT: 1.0
+
+TntRadius: 5
+LiquidMultiplier: 0.5
+
+HealthRegenerationBySecond: 0.1
+HealthRegenerateAfter: 60
+
+CheckItem: STICK
+CheckBlockDamageMessage: "§eVida: §f<health>§f/<max_health>"
+
+ImpulseItem:
+    Type: TNT
+    DisplayName: "§cTnt de Impulsão"
+    Glow: true
+    Lore:
+        - "§7Use este item para fazer canhões."
