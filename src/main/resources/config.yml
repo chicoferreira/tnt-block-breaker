@@ -4,7 +4,9 @@ Health:
     DEFAULT: 1.0
 
 TntRadius: 5
+
 LiquidMultiplier: 0.5
+LiquidAffectChance: 0.20
 
 HealthRegenerationBySecond: 0.1
 HealthRegenerateAfter: 60

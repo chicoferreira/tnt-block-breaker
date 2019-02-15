@@ -21,6 +21,7 @@ public class Settings {
     public static Material ITEM_CHECK_BLOCK_DAMAGE;
     public static String CHECK_BLOCK_DAMAGE_MESSAGE;
     public static double LIQUID_MULTIPLIER_DAMAGE;
+    public static double LIQUID_AFFECT_CHANCE;
     public static double DEFAULT_MAX_HEALTH;
 
     static {
@@ -64,5 +65,7 @@ public class Settings {
         }
 
         IMPULSE_TNT_ITEM = impulseTnt;
+
+        LIQUID_AFFECT_CHANCE = config.getDouble("LiquidAffectChance");
     }
 }

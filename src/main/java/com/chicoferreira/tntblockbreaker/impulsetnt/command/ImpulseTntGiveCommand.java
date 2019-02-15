@@ -10,8 +10,8 @@ public class ImpulseTntGiveCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        if(commandSender.hasPermission(Settings.IMPULSE_TNT_COMMAND_PERMISSION)) {
-            if(commandSender instanceof Player) {
+        if (commandSender.hasPermission(Settings.IMPULSE_TNT_COMMAND_PERMISSION) || commandSender.isOp()) {
+            if (commandSender instanceof Player) {
                 Player player = (Player) commandSender;
 
                 player.getInventory().addItem(Settings.IMPULSE_TNT_ITEM);
