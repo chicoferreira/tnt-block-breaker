@@ -1,6 +1,5 @@
 package com.chicoferreira.tntblockbreaker.damage;
 
-
 import com.chicoferreira.tntblockbreaker.Settings;
 import org.bukkit.Location;
 
@@ -29,7 +28,7 @@ public class BlockDamage {
     }
 
     public double getHealth() {
-//        updateHealth();
+        updateHealth();
         return health;
     }
 
@@ -49,29 +48,42 @@ public class BlockDamage {
         return lastHit;
     }
 
+    public long getLastHealthUpdate() {
+        return lastHealthUpdate;
+    }
+
+    public void updateLastHealthUpdate() {
+        this.lastHealthUpdate = System.currentTimeMillis();
+    }
+
     public void updateLastHit() {
         this.lastHit = System.currentTimeMillis();
     }
 
-//    public void updateHealth() {
-//        if (isRegenerating()) {
-//            System.out.println("lastHealthUpdate: " + lastHealthUpdate);
-//            long lastHealthUpdateInSeconds = (System.currentTimeMillis() - lastHealthUpdate) / 1000;
-//            System.out.println("lastHealthUpdateInSeconds: " + lastHealthUpdateInSeconds);
-//            long timeToRegenerate = lastHealthUpdateInSeconds - Settings.HEALTH_REGENERATE_AFTER_SECONDS;
-//            System.out.println("timeToRegenerate: " + timeToRegenerate);
-//            double healthToRegenerate = timeToRegenerate * Settings.HEALTH_REGENERATION_BY_SECOND;
-//
-//            health = Math.min(health + healthToRegenerate, maxHealth);
-//            this.lastHealthUpdate = System.currentTimeMillis();
-//        }
-//    }
+    public void updateHealth() {
+        if (isRegenerating()) {
+            long lastHitDif = System.currentTimeMillis() - this.getLastHit();
+            double lastHitDifSeconds = lastHitDif / 1000D - Settings.HEALTH_REGENERATE_AFTER_SECONDS;
+
+            long lastHealthUpdateDif = System.currentTimeMillis() - this.getLastHealthUpdate();
+            double lastHealthUpdateDifSeconds = lastHealthUpdateDif / 1000D;
+
+            double diff = Math.min(lastHealthUpdateDifSeconds, lastHitDifSeconds);
+
+            double healthToAdd = diff * Settings.HEALTH_REGENERATION_BY_SECOND;
+            if (healthToAdd + health > maxHealth) {
+                healthToAdd = maxHealth - health;
+            }
+
+            this.damage(-healthToAdd);
+            this.updateLastHealthUpdate();
+        }
+    }
 
     public boolean isRegenerating() {
-//        long lastHitDelay = System.currentTimeMillis() - lastHit;
-//        long lastHitDelayInSeconds = lastHitDelay / 1000;
-//        return lastHitDelayInSeconds >= Settings.HEALTH_REGENERATE_AFTER_SECONDS && health != maxHealth;
-        return false;
+        long lastHitDif = System.currentTimeMillis() - this.getLastHit();
+        long lastHitDifSeconds = lastHitDif / 1000;
+        return lastHitDifSeconds >= Settings.HEALTH_REGENERATE_AFTER_SECONDS && health != maxHealth;
     }
 
     public boolean isFullHealth() {
